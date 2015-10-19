@@ -12,5 +12,27 @@ class AboutTriangleProject2 < Neo::Koan
     assert_raise(TriangleError) do triangle(1, 1, 3) end
     assert_raise(TriangleError) do triangle(2, 4, 2) end
     # HINT: for tips, see http://stackoverflow.com/questions/3834203/ruby-koan-151-raising-exceptions
+
   end
 end
+
+def triangle(a, b, c)
+  s = (a + b + c) / 2.0
+  # the following must be positive to be a valid triangle
+  valid_triangle = (s - a) * (s - b) * (s - c)
+
+  if a <= 0 || b <= 0 || c <= 0 || valid_triangle <= 0 then
+    raise TriangleError
+  elsif a == b && b == c then
+    :equilateral
+  elsif a == c || a == b || b == c then
+    :isosceles
+  else
+    :scalene
+  end
+end
+
+class TriangleError < StandardError
+end
+
+
